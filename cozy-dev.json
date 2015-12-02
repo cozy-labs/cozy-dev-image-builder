@@ -15,7 +15,7 @@
             "guest_additions_path": "VBoxGuestAdditions.iso",
             "guest_additions_mode": "upload",
             "guest_os_type": "Ubuntu_64",
-            "headless": false,
+            "headless": true,
             "http_directory": "http",
             "iso_checksum": "9e5fecc94b3925bededed0fdca1bd417",
             "iso_checksum_type": "md5",
