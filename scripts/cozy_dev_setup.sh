@@ -2,6 +2,9 @@
 
 apt-get -y -qq install couchdb curl git imagemagick python openssl wget sqlite3 build-essential python-dev python-setuptools python-pip libssl-dev libxml2-dev libxslt1-dev npm nodejs nodejs-legacy supervisor
 
+sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/couchdb/default.ini
+service couchdb restart
+
 useradd -M cozy
 useradd -M cozy-data-system
 useradd -M cozy-home
