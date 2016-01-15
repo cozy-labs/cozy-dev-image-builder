@@ -6,6 +6,9 @@ apt-get -y -qq install couchdb curl git imagemagick python openssl wget sqlite3 
 curl -sL https://deb.nodesource.com/setup_4.x | bash -
 apt-get -y -qq install nodejs
 
+# https://github.com/bnjbvr/kresus#on-any-other-unix-based-operating-system
+apt-get -y -qq install libffi-dev libyaml-dev libjpeg-dev python-virtualenv
+
 sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/couchdb/default.ini
 service couchdb restart
 
@@ -16,8 +19,7 @@ useradd -M cozy-home
 mkdir /etc/cozy
 chown -hR cozy /etc/cozy
 
-npm install -g coffee-script cozy-monitor
-npm install -g git://github.com/nono/cozy-controller#node4
+npm install -g coffee-script cozy-monitor cozy-controller
 
 cat >/etc/supervisor/conf.d/cozy-controller.conf <<'EOF'
 [program:cozy-controller]
@@ -42,11 +44,11 @@ while ! curl -s 127.0.0.1:9002 >/dev/null; do
 done
 
 cozy-monitor install data-system
-cozy-monitor install home -r https://github.com/nono/cozy-home.git -b node4
-cozy-monitor install proxy -r https://github.com/nono/cozy-proxy.git -b node4
+cozy-monitor install home
+cozy-monitor install proxy
 
 apt-get -y -qq install libsqlite3-dev ruby ruby-dev gem
-gem install --no-document mailcatcher
+gem install --no-ri --no-rdoc mailcatcher
 
 cat >/etc/supervisor/conf.d/mailcatcher.conf <<'EOF'
 [program:mailcatcher]
