@@ -33,6 +33,15 @@ Vagrant.configure(2) do |config|
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network "public_network"
+  config.vm.network :forwarded_port, guest: 1080, host: 1080 # Mailcatcher
+  config.vm.network :forwarded_port, guest: 5984, host: 5984 # CouchDB
+  config.vm.network :forwarded_port, guest: 9101, host: 9101 # Cozy Data System
+  config.vm.network :forwarded_port, guest: 9002, host: 9002 # Cozy Controller
+  config.vm.network :forwarded_port, guest: 9104, host: 9104 # Cozy Proxy
+  config.vm.network :forwarded_port, guest: 9105, host: 9105 # Realtime socket
+  # The 9103 port is used by the Home but is not forwarded.
+  # You can still access the Home via the proxy: http://localhost:9104/#home
+  # It's also possible to run the Home on your local machine to debug it.
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -47,7 +56,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     # Display the VirtualBox GUI when booting the machine
     # vb.gui = true
-  
+
     # Customize the amount of memory on the VM:
     vb.memory = "1024"
   end
